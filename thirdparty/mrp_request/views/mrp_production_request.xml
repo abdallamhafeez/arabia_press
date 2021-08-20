@@ -13,9 +13,24 @@
             </xpath>
             <xpath expr="//button[@name='button_to_approve']" position="attributes">
                 <attribute name="states">create_bom,done_bom</attribute>
+                <attribute name="groups">base.group_no_one</attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_approved']" position="attributes">
+                <attribute name="states">create_bom,done_bom</attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_cancel']" position="attributes">
+                <attribute name="states">create_bom,done_bom,to_approve,approved</attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_draft']" position="attributes">
+                <attribute name="states">create_bom,done_bom,to_approve,approved,cancel,done</attribute>
             </xpath>
             <xpath expr="//page[@name='mrp_production']" position="before">
                 <page name="routing" string="Routing">
+                    <div style="text-align:right;">
+                        <button name="approved_routing" string="Approved Routing" states="draft" type="object" class="oe_highlight"/>
+                        <button name="create_routing" string="Create Routing" type="object" class="oe_highlight" attrs="{'invisible':['|',('routing_options','=','selection'),('state','!=','approved_routing')]}"/>
+                        <button name="done_routing" string="Done Routing" type="object" class="oe_highlight" attrs="{'invisible':['|',('routing_options','=','create'),('state','!=','approved_routing')]}"/>
+                    </div>
                     <group>
                         <field name="routing_options" widget="radio" options="{'horizontal': True}" attrs="{'readonly':[('state','!=','draft')]}"/>
                     </group>
@@ -56,13 +71,12 @@
                             </tree>
                         </field>
                     </group>
-                    <div style="text-align:right;">
-                        <button name="approved_routing" string="Approved Routing" states="draft" type="object" class="oe_highlight"/>
-                        <button name="create_routing" string="Create Routing" type="object" class="oe_highlight" attrs="{'invisible':['|',('routing_options','=','selection'),('state','!=','approved_routing')]}"/>
-                        <button name="done_routing" string="Done Routing" type="object" class="oe_highlight" attrs="{'invisible':['|',('routing_options','=','create'),('state','!=','approved_routing')]}"/>
-                    </div>
+
                 </page>
                 <page name="bills_of_materials" string="Bills Of Materials">
+                    <div style="text-align:right;" attrs="{'invisible':[('bom_option','=','selection')]}">
+                        <button name="create_bom" string="Create Bom" type="object" states="create_routing,done_routing" class="oe_highlight" context="{'readonly':1}"/>
+                    </div>
                     <group>
                         <field name="bom_option" widget="radio" options="{'horizontal': True}" attrs="{'readonly':[('state','not in',('create_routing','done_routing'))]}"/>
                     </group>
@@ -103,9 +117,6 @@
                             </group>
                         </page>
                     </notebook>
-                    <div style="text-align:right;" attrs="{'invisible':[('bom_option','=','selection')]}">
-                        <button name="create_bom" string="Create Bom" type="object" states="create_routing,done_routing" class="oe_highlight" context="{'readonly':1}"/>
-                    </div>
                 </page>
             </xpath>
             <xpath expr="//field[@name='bom_id']" position="attributes">
@@ -134,7 +145,13 @@
                 <button name="action_view_mrp_bom" string=" BOM" type="object" states="create_bom,to_approve,approved,done" class="oe_stat_button" icon="fa-pencil-square-o"/>
             </xpath>
             <xpath expr="//button[@name='button_cancel']" position="after">
-                <button name="done_bom" string="Done Bom" type="object" attrs="{'invisible':['|',('state','not in',('done_routing','create_routing')),('bom_option','=','create')]}" class="oe_highlight"/></xpath>
+                <button name="done_bom" string="Done Bom" type="object" attrs="{'invisible':['|',('state','not in',('done_routing','create_routing')),('bom_option','=','create')]}" class="oe_highlight"/>
+            </xpath>
+            <xpath expr="//button[4]" position="attributes">
+                 <attribute name="name">action_create_mo</attribute>
+                 <attribute name="type">object</attribute>
+            </xpath>
+
         </field>
     </record>
     <record id="inherit_mrp_bom_form" model="ir.ui.view">

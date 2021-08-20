@@ -260,6 +260,15 @@ class MrpProductionRequest(models.Model):
         else:
             raise ValidationError(_("Please Enter Bill of Materials"))
 
+    def action_create_mo(self):
+        """ replace original wizard for function make same steps """
+        for record in self:
+            request_create_mo_wizard = self.env['mrp.production.request.create.mo'].with_context(
+                active_ids=record.ids,
+                active_model='mrp.production.request').create({})
+            request_create_mo_wizard.compute_product_line_ids()
+            request_create_mo_wizard.mo_qty = record.product_qty
+            request_create_mo_wizard.create_mo()
 
 class WorkCenterAnswer(models.Model):
     """
