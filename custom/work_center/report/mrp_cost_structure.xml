@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="mrp_cost_structure_inherit" inherit_id="mrp_account_enterprise.mrp_cost_structure">
+        <xpath expr="//t/t/div/t/t/table/thead/tr/th[4]" position="before">
+            <th class="text-right o_mrp_report_line_header">
+                <span>Other Cost</span>
+            </th>
+        </xpath>
+        <xpath expr="//t/t/div/t/t/table/tbody/tr/td[5]" position="replace">
+            <td class="text-right">
+                <t t-if="row[5]">
+                    <span t-esc="row[3] * row[4] + row[3] * row[5]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: currency}"/>
+                </t>
+                <t t-else="">
+                    <span t-esc="row[3] * row[4]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: currency}"/>
+                </t>
+            </td>
+        </xpath>
+        <xpath expr="//t/t/div/t/t/table/tbody/tr/td[4]" position="before">
+            <td class="text-right">
+                <span t-esc="row[5]"/>
+            </td>
+        </xpath>
+    </template>
+</odoo>

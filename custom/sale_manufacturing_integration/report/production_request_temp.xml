@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="production_request_temp">
+        <t t-foreach="docs" t-as="o">
+            <t t-set="work_center" t-value="0"/>
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <strong class="text-right">
+                            <h3 t-esc="user.name"/>
+                        </strong>
+                        <strong class="text-right">
+                            <h6 t-esc="time.strftime('%a %d %b %Y')"/>
+                        </strong>
+                        <strong class="text-right">
+                            <h6 t-esc="time.strftime('%I:%M %p')"/>
+                        </strong>
+                        <h2 class="text-center">Operations Ref :
+                            <span t-esc="o.name"/>
+                        </h2>
+                        <br/>
+
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <t t-if="o.partner_id">
+                                    <strong>Customer :</strong>
+                                    <span t-esc="o.partner_id.name"/>
+                                    <br/>
+                                </t>
+                                <t t-if="o.payment_term_id">
+                                    <strong>Payment Term :</strong>
+                                    <span t-esc="o.payment_term_id.name"/>
+                                </t>
+                            </div>
+                            <div class="col-xs-6">
+                                <t t-if="o.product_qty">
+                                    <strong>Qty :</strong>
+                                    <span t-esc="o.product_qty"/>
+                                    <br/>
+                                </t>
+                            </div>
+                        </div>
+                        <separator/>
+                        <t t-if="o.routing_options=='create'">
+                            <t t-foreach="o.work_center_answer_ids" t-as="w">
+                                <t t-if="work_center != w.workcenter_id.id">
+                                    <table class="table table-striped" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th colspan='2' class="text-center">
+                                                    <t t-esc="w.workcenter_id.name"/>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr t-foreach="o.work_center_answer_ids" t-as="l">
+                                                <t t-if="l.workcenter_id.id == w.workcenter_id.id">
+
+                                                    <td class="text-center">
+                                                        <t t-esc="l.name"/>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <t t-esc="l.answer"/>
+                                                    </td>
+                                                </t>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <t t-set="work_center" t-value="w.workcenter_id.id"/>
+                                </t>
+                            </t>
+                        </t>
+                        <t t-if="o.routing_options=='selection'">
+                            <t t-foreach="o.routing_id.operation_ids" t-as="r">
+                                <table class="table table-striped" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th colspan='2' class="text-center">
+                                                <t t-esc="r.workcenter_id.name"/>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="r.work_center_answer_ids" t-as="l">
+                                            <td class="text-center">
+                                                <t t-esc="l.name"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <t t-esc="l.answer"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </t>
+                        </t>
+                        <separator/>
+                        <h3 class="text-center">BOM INFO</h3>
+                        <br/>
+                        <div>
+                            <div class="col-xs-3">
+                                <t t-if="o.product_id">
+                                    <strong>Product :</strong>
+                                    <span t-esc="o.product_id.name"/>
+                                </t>
+                                <t t-if="o.product_qty">
+                                    <strong>Quantity:</strong>
+                                    <span t-esc="o.product_qty"/>
+                                </t>
+                            </div>
+                            <div class="col-xs-6">
+                                <t t-if="o.routing_id">
+                                    <strong>Routing :</strong>
+                                    <span t-esc="o.routing_id.name"/>
+                                </t>
+                                <t t-if="o.type">
+                                    <strong>BoM Type:</strong>
+                                    <span t-esc="dict(o.fields_get(allfields=['type'])['type']['selection'])[o.type]"/>
+                                </t>
+                            </div>
+                        </div>
+                        <table class="table table-condensed" width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Components</th>
+                                    <th class="text-center">Quantity</th>
+                                    <th class="text-center">Consumed in Operation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.bom_id.bom_line_ids" t-as="b">
+                                    <td class="text-center">
+                                        <t t-esc="b.product_id.name"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-esc="b.product_qty"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-esc="b.operation_id.name"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

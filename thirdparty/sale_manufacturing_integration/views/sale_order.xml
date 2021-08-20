@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_sale_order_form" model="ir.ui.view">
+        <field name="name">inherit.sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_quotation_send']" position="before">
+                <button name="new_production_request" string="New Manufacturing Request" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=','sale')]}"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" type="object" name="action_view_mrp_production_request" icon="fa-pencil-square-o" attrs="{'invisible': [('state', '!=', 'sale')]}">
+                    <field name="requests_count" widget="statinfo" string="Manufacturing"/>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="readonly">context.get('partner_readonly') == 1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

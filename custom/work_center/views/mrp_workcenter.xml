@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_mrp_workcenter_form" model="ir.ui.view">
+        <field name="name">inherit.mrp.workcenter.form</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='alternative_workcenter_ids']" position="after">
+                <field name="work_center_type_id"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page name="questions" string="Questions" attrs="{'invisible':[('work_center_type_id','=',False)]}">
+                    <field name="work_center_question_ids">
+                        <form>
+                            <group>
+                                <group>
+                                    <field name="name"/>
+                                </group>
+                                <group>
+                                    <field name="question_type" widget="radio" options="{'horizontal': False}"/>
+                                    <field name="work_center_type_id" invisible="1"/>
+                                </group>
+                            </group>
+                            <notebook attrs="{'invisible':[('question_type','not in',['simple_choice','multiple_choice'])]}">
+                                <page string="Answer Options">
+                                    <field name="answer_choice_ids">
+                                        <tree editable="bottom">
+                                            <field name="value"/>
+                                            <field name="is_correct"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </form>
+                        <tree>
+                            <field name="name"/>
+                            <field name="question_type"/>
+                            <field name="work_center_type_id" invisible="1"/>
+                            <field name="answer_choice_ids" invisible="1"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='costs_hour']" position="after">
+                <field name="other_cost"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
