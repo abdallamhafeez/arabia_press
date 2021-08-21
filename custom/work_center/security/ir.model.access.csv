@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_work_center_type,work.center.type,model_work_center_type,mrp.group_mrp_manager,1,1,1,1
-access_work_center_question,work.center.question,model_work_center_question,mrp.group_mrp_manager,1,1,1,1
-access_answer_choice,answer.choice,model_answer_choice,mrp.group_mrp_manager,1,1,1,1
-access_work_center_answer,work center answer,model_work_center_answer,mrp.group_mrp_manager,1,1,1,1
