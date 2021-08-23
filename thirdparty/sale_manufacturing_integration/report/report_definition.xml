@@ -15,6 +15,21 @@
         <field name="header_spacing">35</field>
         <field name="dpi">90</field>
     </record>
+    <record id="paperformat_custom_no_margin" model="report.paperformat">
+        <field name="name">A4</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">20</field>
+        <field name="margin_bottom">1</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">22</field>
+        <field name="dpi">90</field>
+    </record>
 
     <report id="mrp_production_request_report"
             model="mrp.production.request"
@@ -23,6 +38,15 @@
             name="sale_manufacturing_integration.production_request_temp"
             file="sale_manufacturing_integration.production_request_temp"
             paperformat="paperformat_custom"
+
+    />
+    <report id="mrp_production_request_operation_order_report"
+            model="mrp.production.request"
+            string="Operation Order"
+            report_type="qweb-pdf"
+            name="sale_manufacturing_integration.production_request_operation_order"
+            file="sale_manufacturing_integration.production_request_operation_order"
+            paperformat="paperformat_custom_no_margin"
 
     />
 </odoo>

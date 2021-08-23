@@ -9,6 +9,8 @@
     'depends': ['base', 'mrp_production_request', 'sale', 'mrp_request', 'mrp'],
     'data': [
         # 'security/ir.model.access.csv',
+        'report/report_layout.xml',
+        'report/production_request_operation_order.xml',
         'report/production_request_temp.xml',
         'report/report_definition.xml',
         'views/mrp_production_request.xml',
