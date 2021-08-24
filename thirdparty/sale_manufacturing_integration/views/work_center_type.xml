@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="work_center_type_form_inherit" model="ir.ui.view">
+            <field name="name">work.center.type.form.inherit</field>
+            <field name="model">work.center.type</field>
+            <field name="inherit_id" ref="work_center.work_center_type_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='work_center_question_ids']/form/group/group/field[@name='name']" position="after">
+                    <field name="separate_in_report"/>
+                </xpath>
+                <xpath expr="//field[@name='work_center_question_ids']/tree/field[@name='answer_choice_ids']" position="after">
+                    <field name="separate_in_report"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

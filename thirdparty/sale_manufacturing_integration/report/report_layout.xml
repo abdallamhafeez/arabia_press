@@ -11,12 +11,7 @@
                 </div>
 
             </div>
-<!--            <div t-if="company.logo or company.report_header" class="row zero_min_height">-->
-<!--                <div class="col-12">-->
-<!--                    <div/>-->
-<!--                </div>-->
-<!--            </div>-->
-        </div>\
+        </div>
         <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
             <t t-raw="0"/>
         </div>
