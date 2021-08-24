@@ -57,6 +57,8 @@ class WorkCenterAnswer(models.Model):
         'mrp.routing.workcenter'
     )
     answer = fields.Text()
+    separate_in_report = fields.Boolean(
+        help='Separate this question in operation report in new line')
 
     @api.onchange('free_text', 'textbox', 'numerical_box', 'date', 'datetime',
                   'answer_choice_ids', 'answer_choice_id')

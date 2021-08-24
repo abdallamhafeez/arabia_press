@@ -15,6 +15,7 @@
                             <group>
                                 <group string="Question">
                                     <field name="name" required="1" readonly="1" force_save="1" nolabel="1"/>
+                                    <field name="separate_in_report" groups="base.group_no_one"/>
                                 </group>
                                 <group string="Answer">
                                     <field name="free_text" attrs="{'invisible':[('question_type','!=','free_text')]}" nolabel="1"/>
@@ -33,6 +34,7 @@
                             <field name="name"/>
                             <field name="question_type"/>
                             <field name="answer"/>
+                            <field name="separate_in_report" groups="base.group_no_one"/>
                             <field name="answer_choice_ids" invisible="1"/>
                         </tree>
                     </field>

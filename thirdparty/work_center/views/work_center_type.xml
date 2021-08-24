@@ -23,6 +23,7 @@
                                     <group>
                                         <group>
                                             <field name="name"/>
+                                            <field name="separate_in_report"/>
                                         </group>
                                         <group>
                                             <field name="question_type" widget="radio" options="{'horizontal': False}"/>
@@ -45,6 +46,7 @@
                                     <field name="question_type"/>
                                     <field name="work_center_type_id" invisible="1"/>
                                     <field name="answer_choice_ids" invisible="1"/>
+                                    <field name="separate_in_report"/>
                                 </tree>
                             </field>
                         </page>

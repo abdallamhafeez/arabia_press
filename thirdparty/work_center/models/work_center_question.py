@@ -43,6 +43,8 @@ class WorkCenterQuestion(models.Model):
     work_center_type_id = fields.Many2one(
         'work.center.type'
     )
+    separate_in_report = fields.Boolean(
+        help='Separate this question in operation report in new line')
 
 
 class OptionsChoice(models.Model):

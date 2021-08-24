@@ -36,6 +36,7 @@ class MrpRoutingWorkcenter(models.Model):
                 work_center_answer_ids.append(
                     (0, 0, {'name': quest.name,
                             'question_type': quest.question_type,
+                            'separate_in_report': quest.separate_in_report,
                             'choice_ids': [
                                 (6, 0, quest.answer_choice_ids.ids)]})
                 )
