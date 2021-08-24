@@ -60,6 +60,7 @@
                                         <field name="answer_choice_id" options="{'no_create': True}" attrs="{'invisible':[('question_type','!=','simple_choice')]}" nolabel="1"/>
                                         <field name="question_type" widget="radio" options="{'horizontal': False}" invisible="1"/>
                                         <field name="choice_ids" invisible="1"/>
+                                        <field name="answer" invisible="1"/>
                                     </group>
                                 </group>
                             </form>
