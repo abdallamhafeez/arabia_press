@@ -193,7 +193,9 @@ class MrpProductionRequest(models.Model):
                                         'choice_ids': [
                                             (6, 0,
                                              quest.answer_choice_ids.ids)],
-                                        'workcenter_id': work.id})
+                                        'workcenter_id': work.id,
+                                        'separate_in_report':
+                                            quest.separate_in_report})
                             )
                 if work_center_answer_ids:
                     self.work_center_answer_ids = work_center_answer_ids
