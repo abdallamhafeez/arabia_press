@@ -75,7 +75,4 @@ class WorkCenterAnswer(models.Model):
         elif self.question_type == 'simple_choice':
             self.answer = self.answer_choice_id.value
         else:
-            answer = ""
-            for rec in self.answer_choice_ids:
-                answer += rec.value + ' '
-            self.answer = answer
+            self.answer = " ".join(self.answer_choice_ids.mapped('value'))
