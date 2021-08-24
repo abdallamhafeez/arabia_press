@@ -96,26 +96,105 @@
                                 <t t-esc="work_center.name"/>
                             </div>
                         </div>
-                        <t t-set="len(doc.work_center_answer_ids.sorted(key=lambda l: (l.id)).filtered(lambda line: line.mrp_routing_workcenter_id == work_center))"
-                           t-value="answer_number"/>
-                        <section class="columns-2">
-                            <table class="table table-borderless">
-                                <tbody >
-                                    <t t-foreach="doc.work_center_answer_ids.sorted(key=lambda l: (l.id)).filtered(lambda line: line.mrp_routing_workcenter_id == work_center and line.question_type !='free_text')"
-                                       t-as="answer_line">
-                                        <tr>
-                                            <td >
-                                                <span t-field="answer_line.name"/>
-                                                <span>:</span>
-                                            </td>
-                                            <td class="text-left">
-                                                <span t-field="answer_line.answer"/>
-                                            </td>
-                                        </tr>
+                        <div>
+                            <t t-set="len(doc.work_center_answer_ids.sorted(key=lambda l: (l.id)).filtered(lambda line: line.mrp_routing_workcenter_id == work_center))"
+                               t-value="answer_number"/>
+                            <!--                        <section style="width: 25%; -webkit-column-count: 2; /* Chrome, Safari, Opera */ -moz-column-count: 2; /* Firefox */ column-count: 2; -webkit-column-gap: 5px; /* Chrome, Safari, Opera */ -moz-column-gap: 5px; /* Firefox */ column-gap: 10px; column-fill: balance; -moz-column-fill: balance; -webkit-column-fill: balance; height: 5em; text-align: justify; -webkit-columns: 0 0;">-->
+                            <!--                            <table class="table table-borderless">-->
+                            <!--                                <tbody >-->
+                            <!--                                    <t t-foreach="doc.work_center_answer_ids.sorted(key=lambda l: (l.id)).filtered(lambda line: line.mrp_routing_workcenter_id == work_center and line.question_type !='free_text')"-->
+                            <!--                                       t-as="answer_line">-->
+                            <!--                                        <tr>-->
+                            <!--                                            <td >-->
+                            <!--                                                <span t-field="answer_line.name"/>-->
+                            <!--                                                <span>:</span>-->
+                            <!--                                            </td>-->
+                            <!--                                            <td class="text-left">-->
+                            <!--                                                <span t-field="answer_line.answer"/>-->
+                            <!--                                            </td>-->
+                            <!--                                        </tr>-->
+                            <!--                                    </t>-->
+                            <!--                                </tbody>-->
+                            <!--                            </table>-->
+                            <!--                        </section>-->
+                            <div class="justify-content-between">
+                                <t t-set="even_answers" t-value="[]"/>
+                                <t t-set="odd_answers" t-value="[]"/>
+                                <t t-set="line_number" t-value="0"/>
+                                <t t-foreach="doc.work_center_answer_ids.sorted(key=lambda l: (l.id)).filtered(lambda line: line.mrp_routing_workcenter_id == work_center and line.question_type !='free_text')"
+                                   t-as="answer_line">
+                                    <t t-set="line_number"
+                                       t-value="line_number + 1"/>
+                                    <t t-if="(line_number % 2) == 0">
+                                        <t t-set="even_answers"
+                                           t-value="even_answers + [answer_line.id]"/>
                                     </t>
-                                </tbody>
-                            </table>
-                        </section>
+                                    <t t-else="">
+                                        <t t-set="odd_answers"
+                                           t-value="odd_answers + [answer_line.id]"/>
+                                    </t>
+                                </t>
+
+                                <div class="row">
+                                    <div class="col-6"
+                                         style="width:50%;">
+                                        <t t-foreach="doc.work_center_answer_ids.sorted(key=lambda l: (l.id)).filtered(lambda line: line.mrp_routing_workcenter_id == work_center and line.question_type !='free_text')"
+                                           t-as="answer_line">
+
+                                            <div t-if="answer_line.id in odd_answers">
+                                                <table class="table table-borderless" style="padding: 0px;">
+                                                    <thead style="display: none;">
+                                                        <th style="width: 30%;  max-height: 0px !important;"/>
+                                                        <th style="width: 80%;  max-height: 0px !important;"/>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <span t-field="answer_line.name"/>
+                                                                <span>:</span>
+                                                            </td>
+                                                            <td>
+                                                                <span t-field="answer_line.answer"/>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+                                        </t>
+
+                                    </div>
+                                    <div class="col-6"
+                                         style="width:50%;">
+                                        <t t-foreach="doc.work_center_answer_ids.sorted(key=lambda l: (l.id)).filtered(lambda line: line.mrp_routing_workcenter_id == work_center and line.question_type !='free_text')"
+                                           t-as="answer_line">
+                                            <div t-if="answer_line.id in even_answers">
+                                                <table class="table table-bordered" style="padding: 0px;">
+                                                    <thead style="display: none;">
+                                                        <th style="width: 30%; max-height: 0px !important;"/>
+                                                        <th style="width: 80%; max-height: 0px !important;"/>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <span t-field="answer_line.name"/>
+                                                                <span>:</span>
+                                                            </td>
+                                                            <td>
+                                                                <span t-field="answer_line.answer"/>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </t>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
                         <t t-foreach="doc.work_center_answer_ids.sorted(key=lambda l: (l.id)).filtered(lambda line: line.mrp_routing_workcenter_id == work_center and line.question_type =='free_text')"
                            t-as="answer_line_text">
                             <div class="row">
@@ -130,7 +209,7 @@
                     </t>
                 </div>
                 <div class="row">
-                     <table class="table table-borderless">
+                    <table class="table table-borderless">
                         <tbody>
                             <tr>
                                 <td style="text-align: left;">
@@ -150,7 +229,8 @@
                                 </td>
                                 <td style="text-align: center;">
                                     <span>...............................</span>
-                                </td><td style="text-align: right;">
+                                </td>
+                                <td style="text-align: right;">
                                     <span>...............................</span>
                                 </td>
                             </tr>
