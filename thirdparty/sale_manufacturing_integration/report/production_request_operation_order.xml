@@ -88,6 +88,69 @@
                     </table>
 
                 </div>
+                <div t-if="doc.bom_id">
+                     <div class="row" style="background-color: gray">
+                            <div class="col-12 text-center">
+                                <span>Bill Of Material</span>
+                            </div>
+                        </div>
+                    <div>
+                        <t t-set="even_bom_answers" t-value="[]"/>
+                        <t t-set="odd_bom_answers" t-value="[]"/>
+                        <t t-set="line_number" t-value="0"/>
+                        <t t-foreach="doc.bom_id.bom_line_ids"
+                           t-as="componant_line">
+                            <t t-set="line_number" t-value="line_number + 1"/>
+                            <t t-if="(line_number % 2) == 0">
+                                <t t-set="even_bom_answers"
+                                   t-value="even_bom_answers + [componant_line.id]"/>
+                            </t>
+                            <t t-else="">
+                                <t t-set="odd_bom_answers"
+                                   t-value="odd_bom_answers + [componant_line.id]"/>
+                            </t>
+                        </t>
+                    </div>
+                    <div class="row">
+                        <div class="col-6" style="width:50%;">
+                            <t t-foreach="doc.bom_id.bom_line_ids"
+                               t-as="componant">
+                                <div t-if="componant.id in odd_bom_answers">
+                                    <table class="table table-borderless"
+                                           style="padding: 0px;">
+                                        <tbody>
+                                            <tr>
+                                                <td style="padding: 0px;">
+                                                    <t>
+                                                        <span t-esc="componant.product_id.name"/>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </t>
+                        </div>
+                        <div class="col-6" style="width:50%;">
+                            <t t-foreach="doc.bom_id.bom_line_ids" t-as="componant">
+                                <div t-if="componant.id in even_bom_answers">
+                                    <table class="table table-borderless"
+                                           style="padding: 0px;">
+                                        <tbody>
+                                            <tr>
+                                                <td style="padding: 0px;">
+                                                    <t>
+                                                        <span t-esc="componant.product_id.name"/>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
                 <div>
                     <t t-foreach="doc.work_center_answer_ids.sorted(key=lambda l: (l.id)).mapped('mrp_routing_workcenter_id')"
                        t-as="work_center">
@@ -152,14 +215,15 @@
                                         <t t-foreach="doc.work_center_answer_ids.sorted(key=lambda l: (l.id)).filtered(lambda line: line.mrp_routing_workcenter_id == work_center and not line.separate_in_report)"
                                            t-as="answer_line">
                                             <div t-if="answer_line.id in even_answers">
-                                                <table class="table table-borderless" style="padding: 0px;">
+                                                <table class="table table-borderless"
+                                                       style="padding: 0px;">
                                                     <tbody>
                                                         <tr>
                                                             <td style="padding: 0px;width: 30%;">
                                                                 <t>
                                                                     <strong>
-                                                                    <span t-esc="answer_line.name"/>
-                                                                </strong>
+                                                                        <span t-esc="answer_line.name"/>
+                                                                    </strong>
                                                                 </t>
                                                             </td>
                                                             <td style="padding: 0px;width: 70%;">
