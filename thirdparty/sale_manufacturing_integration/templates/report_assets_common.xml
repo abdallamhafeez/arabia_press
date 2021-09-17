@@ -1,0 +1,10 @@
+<odoo>
+    <template id="report_assets_common_custom_fonts"
+              name="Din Next Arabic Regular Report Font"
+              inherit_id="web.report_assets_common">
+        <xpath expr="." position="inside">
+            <link href="/sale_manufacturing_integration/static/src/less/fonts.less"
+                  rel="stylesheet" type="text/less"/>
+        </xpath>
+    </template>
+</odoo>
