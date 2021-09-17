@@ -6,7 +6,6 @@
         <t t-call="sale_manufacturing_integration.external_layout_custom">
             <div class="page font-din-next"
                  style="page-break-inside:avoid; page-break-after:auto;">
-
                 <style type="text/css">
                     .columns-2{
                     width: 25%;
@@ -34,7 +33,6 @@
                             <span>Operation Order Number</span>
                             <span t-esc="doc.name"/>
                         </h1>
-
                     </div>
                 </div>
                 <div class="row">
@@ -120,9 +118,14 @@
                                            style="padding: 0px;">
                                         <tbody>
                                             <tr>
-                                                <td style="padding: 0px;">
+                                                <td style="padding: 0px; text-align: center; width: 60%;">
                                                     <t>
                                                         <span t-esc="componant.product_id.name"/>
+                                                    </t>
+                                                </td>
+                                                <td style="padding: 0px; text-align: center; width: 40%;">
+                                                    <t>
+                                                        <span t-esc="componant.product_qty"/>
                                                     </t>
                                                 </td>
                                             </tr>
@@ -138,9 +141,14 @@
                                            style="padding: 0px;">
                                         <tbody>
                                             <tr>
-                                                <td style="padding: 0px;">
+                                                <td style="padding: 0px; text-align: center;width: 60%;">
                                                     <t>
                                                         <span t-esc="componant.product_id.name"/>
+                                                    </t>
+                                                </td>
+                                                <td style="padding: 0px; text-align: center;width: 40%;">
+                                                    <t>
+                                                        <span t-esc="componant.product_qty"/>
                                                     </t>
                                                 </td>
                                             </tr>
